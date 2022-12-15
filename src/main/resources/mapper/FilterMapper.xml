@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitstudy.app.dao.FilterMapper">
+    <!-- 영화 상세페이지  -->
+    <select id="selectAll" parameterType="SearchCondition" resultType="FilterDto">
+        SELECT movie_idx, movie_title, movie_img, movie_plot
+        FROM movie
+        WHERE true
+        <if test="genre != null and genre != '' " >
+            <foreach collection="genre" item="item" separator=" AND " open=" AND " close="" >
+                movie_idx IN (SELECT genre.movie_idx from genre where genre.genre = "${item}")
+            </foreach>
+        </if>
+        <if test="movie_nation != null and movie_nation != '' " >
+            AND movie_idx IN (SELECT movie.movie_idx FROM movie WHERE movie.movie_nation = "${movie_nation}")
+        </if>
+        <if test="movie_level != null and movie_level != '' " >
+            AND movie_idx IN (SELECT movie.movie_idx FROM movie WHERE movie.movie_level = "${movie_level}")
+        </if>
+        <if test="OTT != null and OTT != '' " >
+            AND movie_idx IN (SELECT OTT.movie_idx FROM OTT WHERE OTT.OTT = "${OTT}")
+        </if>
+        <if test="movie_runtime_from != null and movie_runtime_from != '' and movie_runtime_to != null and movie_runtime_to != ''" >
+        <![CDATA[
+        AND movie_idx IN (SELECT movie.movie_idx FROM movie WHERE movie.movie_runtime > ${movie_runtime_from} AND movie.movie_runtime <= ${movie_runtime_to})
+        ]]>
+        </if>
+        <if test="movie_date != null and movie_date != ''" >
+            <foreach collection="movie_date" item="item" separator=" OR " open=" AND movie_idx IN (SELECT movie.movie_idx FROM movie WHERE " close=")">
+                movie.movie_date LIKE CONCAT(#{item}, '%')
+            </foreach>
+        </if>
+        order by movie.movie_rate desc;
+    </select>
+    <select id="selectDirect" parameterType="AppCondition" resultType="AppDto">
+        <foreach collection="movie_idx" item="item" separator=" UNION ALL " open="" close="">
+            select direct_name from direct where direct_idx in (select direct_idx from app_direct where movie_idx = #{item})
+        </foreach>
+    </select>
+</mapper>

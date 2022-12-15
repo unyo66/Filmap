@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitstudy.app.dao.movieDetailMapper">
+    <!-- 영화 상세페이지  -->
+    <select id="movieDetail" parameterType="int" resultType="MovieDetailDto">
+        SELECT movie_idx, movie_title, movie_nation, movie_level, movie_plot, movie_runtime, movie_img, movie_date,
+        TRUNCATE((movie_rate*0.01),1) as movie_rate
+        FROM movie WHERE movie_idx= #{movie_idx};
+    </select>
+    <select id="movieRate" parameterType="int" resultType="int">
+        select ifnull(TRUNCATE(AVG(review_rate),1),0) AS review_rate from review where movie_idx = #{movie_idx}
+    </select>
+    <select id="movieGenre" parameterType="int" resultType="String">
+        SELECT group_concat(genre SEPARATOR ' / ') FROM genre WHERE movie_idx= #{movie_idx}
+    </select>
+    <select id="movieOtt" parameterType="int" resultType="String">
+        SELECT group_concat(ott separator ' / ') FROM ott WHERE movie_idx= #{movie_idx}
+    </select>
+
+<!--    출연진 가져오기-->
+    <select id="appDirect" parameterType="int" resultType="AppearanceDto">
+        SELECT ap.direct_idx, d.direct_name, d.direct_img FROM app_direct ap LEFT JOIN direct d ON ap.direct_idx = d.direct_idx WHERE movie_idx = #{movie_idx};
+    </select>
+    <select id="appActor" parameterType="int" resultType="AppearanceDto">
+        SELECT actor_idx FROM app_actor WHERE movie_idx = #{movie_idx}
+    </select>
+    <select id="actorList" parameterType="java.util.List" resultType="AppearanceDto">
+        SELECT * FROM actor WHERE actor_idx IN
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">
+            #{item.actor_idx}
+        </foreach>
+    </select>
+
+    <!--  비슷한 영화가져오기  -->
+    <select id="movieList" parameterType="int" resultType="MovieDetailDto">
+        SELECT movie_idx, movie_title, movie_img FROM movie WHERE movie_idx= ANY(SELECT distinct movie_idx FROM genre WHERE genre IN (SELECT genre FROM genre WHERE movie_idx = ${movie_idx}))
+    </select>
+
+
+    <!-- 영화 찜하기(북마크)체크 - 했는지 안했는지 처음에 보여주기 -->
+    <select id="readMyMovie" parameterType="map" resultType="UserStoreDto">
+        select count(*) as bookmark from bookmark where movie_idx=#{movie_idx} and user_idx=#{user_idx}
+    </select>
+    <!-- 영화 찜하기(북마크)하기  - 찜하기버튼 클릭시  -->
+    <insert id="addMyMovie" parameterType="userStoreDto">
+        INSERT INTO bookmark VALUES (#{user_idx}, #{movie_idx})
+    </insert>
+    <!-- 찜하기 취소 -->
+    <delete id="deleteMyMovie" parameterType="userStoreDto">
+        DELETE FROM bookmark WHERE user_idx = #{user_idx} AND movie_idx = #{movie_idx}
+    </delete>
+
+
+    <!-- 로그인상태시 별점 체크 -->
+    <select id="myRating" parameterType="map" resultType="ReviewDto">
+        select ifnull(max(review_rate),0) as review_rate from review where user_idx = #{user_idx} and movie_idx = #{movie_idx}
+    </select>
+    <select id="searchRate" parameterType="ReviewDto" resultType="int">
+        select count(*) from review where movie_idx= #{movie_idx} and user_idx=#{user_idx}
+    </select>
+
+    <insert id="addRata" parameterType="ReviewDto">
+        INSERT INTO review(movie_idx, user_idx, review_rate) VALUES (${movie_idx},${user_idx},${review_rate})
+    </insert>
+
+    <delete id="deleteRate" parameterType="ReviewDto">
+        DELETE FROM review WHERE movie_idx=#{movie_idx} and user_idx = #{user_idx}
+    </delete>
+
+<!--    리뷰 뿌리기-->
+    <select id="reviewList" parameterType="int" resultType="ReviewDto">
+    SELECT review_idx, movie_idx, r.user_idx, user_name,review_rate, review_text, review_spoiler, review_add_date  from review r left join user u on r.user_idx = u.user_idx where movie_idx = #{movie_idx}
+    </select>
+
+    <!--     **************** 미완성  ***************     -->
+    <!-- 코멘트작성 -->
+    <insert id="addReview" parameterType="ReviewDto">
+        INSERT INTO review(movie_idx,user_idx,review_text,review_add_date) values(#{movie_idx},#{user_idx},#{review_text},now())
+<!--        INSERT INTO review values(#{review_idx},#{movie_idx},#{user_idx},#{review_text},now(),#{review_spoiler})-->
+    </insert>
+
+    <!-- 코멘트 뿌리기 -->
+    <select id="cmtList" parameterType="int" resultType="CommentDto">
+        SELECT u.user_idx, user_name, review_idx, review_rate, review_text, review_spoiler,review_add_date FROM user u INNER JOIN review r ON u.user_idx = r.user_idx WHERE movie_idx= ${movie_idx} ORDER BY review_add_date DESC;
+    </select>
+</mapper>

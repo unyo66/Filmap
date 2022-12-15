@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitstudy.app.dao.HeaderMapper">
+    <!-- 영화 상세페이지  -->
+    <select id="search" parameterType="String" resultType="HeaderDto">
+        SELECT movie_idx, movie_title, movie_img FROM movie WHERE movie_title LIKE CONCAT('%', #{input}, '%') ORDER BY movie_rate desc limit 4;
+    </select>
+    <select id="login" parameterType="LoginDto" resultType="LoginDto">
+        SELECT user_idx, user_id, user_pw, user_salt, user_name FROM user WHERE user_id = #{user_id};
+    </select>
+    <insert id="register" parameterType="LoginDto">
+        INSERT INTO user (user_id, user_pw, user_name, user_salt) values (#{user_id}, #{user_pw}, #{user_name}, #{user_salt});
+    </insert>
+</mapper>

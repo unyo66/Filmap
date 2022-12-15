@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitstudy.app.dao.PreviewMapper">
+    <!-- 영화 상세페이지  -->
+    <select id="countPreview" resultType="Integer">
+        select movie_idx from preview
+    </select>
+    <select id="countBookmark" parameterType="int" resultType="Integer">
+        select movie_idx from bookmark where user_idx = #{user_idx}
+    </select>
+</mapper>

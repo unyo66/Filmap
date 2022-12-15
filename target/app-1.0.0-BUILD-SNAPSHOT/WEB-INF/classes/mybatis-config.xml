@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <!-- 아직 BoardDto 안만들거니까 잠시 주석 처리하기 -->
+        <!-- 여기는 별칭 정하는곳  boardMapper 에 resultType="BoardDto" 임  -->
+        <typeAlias alias="MovieDto" type="com.bitstudy.app.domain.MovieDto"/>
+        <typeAlias alias="HeaderDto" type="com.bitstudy.app.domain.HeaderDto"/>
+        <typeAlias alias="FilterDto" type="com.bitstudy.app.domain.FilterDto"/>
+        <typeAlias alias="AppDto" type="com.bitstudy.app.domain.AppDto"/>
+        <typeAlias alias="MainDto" type="com.bitstudy.app.domain.MainDto"/>
+        <typeAlias alias="LoginDto" type="com.bitstudy.app.domain.LoginDto"/>
+        <typeAlias alias="MyDto" type="com.bitstudy.app.domain.MyDto"/>
+        <typeAlias alias="SearchCondition" type="com.bitstudy.app.domain.SearchCondition"/>
+        <typeAlias alias="AppCondition" type="com.bitstudy.app.domain.AppCondition"/>
+        <typeAlias alias="MovieDetailDto" type="com.bitstudy.app.domain.MovieDetailDto"/>
+        <typeAlias alias="AppearanceDto" type="com.bitstudy.app.domain.AppearanceDto"/>
+        <typeAlias alias="UserStoreDto" type="com.bitstudy.app.domain.UserStoreDto"/>
+        <typeAlias alias="ReviewDto" type="com.bitstudy.app.domain.ReviewDto"/>
+        <typeAlias alias="CommentDto" type="com.bitstudy.app.domain.CommentDto"/>
+    </typeAliases>
+</configuration>

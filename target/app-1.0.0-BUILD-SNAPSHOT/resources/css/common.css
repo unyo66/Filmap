@@ -1,0 +1,23 @@
+body
+{
+    margin: 0;
+    background-color: #222;
+    font-family: Noto Sans KR;
+}
+ul
+{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li
+{
+    margin: 0;
+    padding: 0;
+}
+a
+{
+    color: inherit;
+    text-decoration: none;
+    margin: 0;
+}

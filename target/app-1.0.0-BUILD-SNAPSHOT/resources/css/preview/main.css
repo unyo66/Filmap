@@ -1,0 +1,128 @@
+.header {
+  width: 100%;
+  height: 60px;
+  background-color: white;
+}
+
+.main {
+  width: 100%;
+  height: 909px;
+}
+
+.preview_main {
+  margin: 0 auto;
+  width: 851px;
+  height: 909px;
+  position: relative;
+  overflow: hidden;
+}
+
+.preview_main ul {
+  text-align: center;
+  position: absolute;
+}
+
+.preview_main ul li {
+  margin-top: 90px;
+  margin-bottom: 20px;
+  display: inline-block;
+}
+
+/*--------------------------------------------- 예고편 메인*/
+.preview_frame {
+  margin: 0 auto;
+  width: 851px;
+  height: 670px;
+  border-radius: 20px;
+  background-color: rgb(50, 50, 50);
+} /*메인*/
+
+/*--------------------------------------------- 예고편 프레임*/
+.preview_video {
+  width: 100%;
+  height: 479px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  pointer-events: none; /*클릭못하게*/
+} /*비디오(youtube 영상, youtube_api)*/
+
+.preview_info_main {
+  position: relative;
+  height: 187px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  background-color: rgb(50, 50, 50);
+} /*영화 정보 메인*/
+
+.vol_btn {
+  position: absolute;
+  left: 780px;
+  top: -400px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: none;
+} /*볼륨 버튼*/
+
+/*--------------------------------------------- 비디오 부분*/
+.preview_movie_poster {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  width: 120px;
+  height: 160px;
+  border-radius: 5px;
+}
+
+/*---------------------------------------------*/
+.preview_movie_info {
+  position: absolute;
+  top: 5px;
+  left: 155px;
+  width: 630px;
+  height: 130px;
+  border-radius: 5px;
+  text-align: left;
+  color: white;
+}
+
+/*--------------------------------------------- 영화 정보 부분*/
+.preview_movie_like {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  top: -3px;
+  right: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+/*--------------------------------------------- 찜 버튼 */
+.up_btn {
+  z-index: 2;
+  width: 70px;
+  height: 70px;
+  top: 110px;
+  right: 10px;
+  position: fixed;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.down_btn {
+  z-index: 2;
+  width: 70px;
+  height: 70px;
+  bottom: 30px;
+  right: 10px;
+  position: fixed;
+  cursor: pointer;
+}
+
+/*--------------------------------------------- 이동 버튼 */
+@media screen and (max-width: 1200px) {
+  .main {
+    width: 1200px;
+  }
+  /*화면 고정*/
+}

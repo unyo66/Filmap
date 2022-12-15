@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/schema/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bitstudy.app.dao.MyMapper">
+    <!-- 영화 상세페이지  -->
+    <select id="selectMyFollowing" parameterType="int" resultType="MyDto">
+        select user_name from user where user_idx in (select follow_user_id from follow where user_idx = #{user_idx})
+    </select>
+    <select id="selectMyFollowed" parameterType="int" resultType="MyDto">
+        select user_name from user where user_idx in (select user_idx from follow where follow_user_id = 6)
+    </select>
+    <select id="selectMyReview" parameterType="int" resultType="MyDto">
+        select m.movie_idx, m.movie_title, m.movie_img, r.review_rate, r.review_text from movie m, review r where m.movie_idx = r.movie_idx and r.user_idx = #{user_idx}
+    </select>
+    <select id="selectMyBookmark" parameterType="int" resultType="MyDto">
+        select movie_idx, movie_title, movie_img from movie where movie_idx in (select movie_idx from bookmark where user_idx = #{user_idx});
+    </select>
+</mapper>

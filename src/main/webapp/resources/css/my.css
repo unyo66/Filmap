@@ -1,0 +1,230 @@
+.wrap
+{
+    width: 1100px;
+    margin: 0 auto;
+}
+.main {
+    width: 100%;
+    height: 909px;
+    margin-top: 80px;
+    position: relative;
+}
+
+/*--------------------------------- 메인 공간 */
+.main_menu {
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    position: fixed;
+    top: 80px;
+    left: calc(50% - 550px);
+    z-index: 9;
+}
+
+/*------------ 메뉴 메인 */
+.main_menu ul {
+    text-align: left;
+    list-style: none;
+}
+
+.main_menu_li {
+    display: block;
+    padding: 15px 30px;
+    margin: 25px 0;
+    cursor: pointer;
+    color: rgb(128, 128, 128);
+    font-size: 18px;
+    fontWeight: 400
+}
+.main_menu_li:hover {
+    color: #ddd;
+}
+.rd:checked + .main_menu_li {
+    color: #eee;
+    fontWeight: 600;
+}
+.item_area {
+    width: 900px;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 350px);
+    background-color: #222;
+    box-sizing: border-box;
+    padding-top: 10px;
+    overflow: hidden;
+}
+
+.review_item
+{
+    width: 100%;
+    height: 150px;
+    margin: 10px 20px;
+    background-color: #444;
+    position: relative;
+    display: flex;
+    color: #eee;
+}
+.review_item_img
+{
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+}
+.review_item_header
+{
+    width: 720px;
+    position: absolute;
+    top: 20px;
+    left: 130px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+.review_item_title
+{
+    font-size: 26px;
+}
+.review_item_text
+{
+    position: absolute;
+    top: 70px;
+    left: 130px;
+    margin-right: 10px;
+}
+#bookmark
+{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+.bookmark_item
+{
+    overflow: hidden;
+    padding: 10px;
+}
+.bookmark_img_box
+{
+    width: 200px;
+    height: 300px;
+    overflow: hidden;
+}
+.bookmark_img
+{
+    width: 200px;
+    height: 300px;
+    object-fit: cover;
+    transition: all 0.3s;
+}
+.bookmark_img:hover
+{
+    transform: scale(1.05);
+}
+
+.bookmark_title
+{
+    height: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #eee;
+}
+.follow_item
+{
+    width: 100%;
+    height: 100px;
+    margin: 10px 20px;
+    background-color: #444;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.follow_item_name
+{
+    font-size: 26px;
+    color: #eee;
+}
+.follow_delete
+{
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #eee;
+    background-color: #111;
+    cursor: pointer;
+}
+.add_page {
+    z-index: 3;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.add_page_wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.add_page_main {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(255, 255, 255);
+}
+
+.add_page_main p {
+    font-size: 25px;
+    display: inline;
+    color: rgb(50, 50, 50);
+}
+
+.add_page_main img {
+    width: 40px;
+    height: 40px;
+    float: right;
+    cursor: pointer;
+}
+
+.add_page_set_main {
+    margin: 8px auto;
+    width: 99.5%;
+    height: 450px;
+    border-top: 2px solid rgb(200, 200, 200);
+}
+.profile_main {
+    width: 100%;
+    height: 130px;
+    border-bottom: 1px solid #555;
+}
+
+
+.profile_name {
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+    font-weight: 700;
+    color: #eee;
+    padding: 20px 0;
+}
+
+.profile_follow_main {
+    width: 100%;
+    height: 60px;
+    color: #eee;
+    font-size: 14px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.follo_set {
+    text-align: center;
+    font-size: 17px;
+}
